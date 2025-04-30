@@ -41,6 +41,11 @@ Uses Vite with HMR and some ESLint rules.
 
 4. User should be able to copy and share their queries easily.
 
+## Rough mocks
+
+![Main page](./public/querywise-main.png)
+![Add query modal](./public/add-query-modal.png)
+
 ### Decision logs
 
 #### Codebase - Typescript or not
