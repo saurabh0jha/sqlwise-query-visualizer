@@ -17,7 +17,7 @@ import { useNavigate } from "react-router";
 import { NewQueryDialog } from "../dialog/NewQueryDialog";
 
 const SidebarSection = () => {
-  const logoPath = `/qw-logo.svg`;
+  const logoPath = `/qw-logo.png`;
   const queries = useContext(QueriesContext) || {};
   const navigate = useNavigate();
   return (
@@ -26,7 +26,7 @@ const SidebarSection = () => {
         <SidebarHeader className="h-16">
           <SidebarMenu>
             <SidebarMenuItem className="flex items-center justify-center">
-              <img src={logoPath} alt="QueryWise" className="w-22 h-14" />
+              <img src={logoPath} alt="QueryWise" className="w-20 h-10" />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
