@@ -1,7 +1,11 @@
 # SQL Wise Query Visualizer
 
+#### ✨✨ [Live Preview](https://sqlwise-query-visualizer.vercel.app/) 🚀
+
 A simple application to run queries on selected data sources. Results of the query on the datasource is displayed to the user.
-The user will be able to run operations on data like exporting selection, pagination, sharing links
+The user will be able to run operations on data like exporting selection, pagination, sharing links.
+
+The App is deployed on Vercel at https://sqlwise-query-visualizer.vercel.app/
 
 ## Frameworks and Libraries
 
