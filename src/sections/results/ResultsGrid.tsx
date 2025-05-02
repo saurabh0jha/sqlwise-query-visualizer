@@ -23,9 +23,7 @@ const ResultsGrid = React.memo(
             />
           </div>
         ) : (
-          <div className="my-4 mx-2 flex flex-col gap-4">
-            <ResultsLoader />
-          </div>
+          <ResultsLoader />
         )}
       </>
     );
