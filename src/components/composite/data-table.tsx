@@ -20,6 +20,7 @@ import { CopyType } from "@/components/composite/types";
 import { ExportType } from "@/components/composite/types";
 import { copyToClipboard, downloadFile } from "@/lib/utils";
 import { DataTablePagination } from "./data-table-pagination";
+import { toast } from "sonner";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -72,6 +73,15 @@ export function DataTable<TData, TValue>({
       default:
         break;
     }
+    toast.success(
+      `Successfully exported ${
+        [ExportType.ALL_CSV, ExportType.ALL_JSON].includes(type)
+          ? "all"
+          : table.getFilteredSelectedRowModel().rows.length === 0
+          ? "current page"
+          : "selected"
+      } data`
+    );
   };
 
   const handleCopy = (type: CopyType) => {
@@ -101,7 +111,17 @@ export function DataTable<TData, TValue>({
         copyToClipboard(tableRows, "json");
         break;
     }
+    toast.success(
+      `Successfully copied ${
+        [CopyType.ALL_CSV, CopyType.ALL_JSON].includes(type)
+          ? "all"
+          : table.getFilteredSelectedRowModel().rows.length === 0
+          ? "current page"
+          : "selected"
+      } data to clipboard`
+    );
   };
+
   return (
     <>
       <DataTableActions onExport={handleExport} onCopy={handleCopy} />

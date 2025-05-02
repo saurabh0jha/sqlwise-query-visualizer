@@ -9,6 +9,7 @@ import { Action, QueriesDispatchContext } from "@/store/queryProvider";
 
 import { v4 as uuidv4 } from "uuid";
 import useQueryResults from "@/hooks/use-query-results";
+import { toast } from "sonner";
 
 const QueryView = () => {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ const QueryView = () => {
         },
       },
     });
+
+    toast.success(`Successfully updated query ${field}`);
   };
 
   const handleQueryDelete = (id: string) => {
@@ -53,8 +56,8 @@ const QueryView = () => {
           },
         },
       });
-      navigate("/");
     }
+    navigate("/");
   };
 
   return (

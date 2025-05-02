@@ -1,6 +1,7 @@
 import { getQueries } from "@/api/api";
 import { Query } from "@/types";
 import { createContext, Dispatch, useEffect, useReducer } from "react";
+import { toast } from "sonner";
 
 type QueryStore = Record<string, Query>;
 
@@ -70,6 +71,7 @@ function queriesReducer(queries: QueryStore, action: Action): QueryStore {
         [action.payload.id]: action.payload.query,
       };
       localStorage.setItem("queries", JSON.stringify(newQueries));
+      toast.success("Congrats! Your query has been created successfully.");
       return newQueries;
     }
     case "UPDATE_QUERY": {
@@ -83,6 +85,7 @@ function queriesReducer(queries: QueryStore, action: Action): QueryStore {
     case "DELETE_QUERY": {
       const { [action.payload]: _, ...rest } = queries;
       localStorage.setItem("queries", JSON.stringify(rest));
+      toast.success("Your query has been deleted successfully.");
       return rest;
     }
     default:

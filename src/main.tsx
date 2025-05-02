@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { QueriesProvider } from "./store/queryProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./main.css";
 import App from "./App.tsx";
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/query/:queryId" element={<QueryView />} />
           </Route>
         </Routes>
+        <Toaster position="bottom-left" richColors closeButton />
       </QueriesProvider>
     </BrowserRouter>
   </StrictMode>
