@@ -7,6 +7,27 @@ The user will be able to run operations on data like exporting selection, pagina
 
 The App is deployed on Vercel at https://sqlwise-query-visualizer.vercel.app/
 
+## Performance Metrics
+
+[PageSpeed Metrics - Desktop](https://pagespeed.web.dev/analysis/https-sqlwise-query-visualizer-vercel-app/m0gohm4p2p?form_factor=desktop)
+[PageSpeed Metrics - Mobile](https://pagespeed.web.dev/analysis/https-sqlwise-query-visualizer-vercel-app/m0gohm4p2p?form_factor=mobile)
+
+[Lighthouse chrome trace](./public/lighthouse-timespan-metrics.html)
+
+- PageSpeed Metrics [Desktop]
+
+  - performance - 100
+  - accessibility - 90
+  - Best practices - 100
+  - SEO - 91
+
+- Chrome profiling reveals
+  - JS heap usage - 12-20 MB
+  - Max Nodes - 2205
+  - Max Listeners - 1600
+  - No spikes in heap size, nodes, listeners or GPU usage
+  - see Performance section at end
+
 ## Frameworks and Libraries
 
 - React with TypeScript
@@ -153,6 +174,10 @@ store = {
 ### Accessibility
 
 - added ARIA controls using Cursor AI generated attributes
+
+### Performance Metrics
+
+![Chrome Profiling Screenshot](./public/perf-chrome-profile.png)
 
 ### Decision logs
 
