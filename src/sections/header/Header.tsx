@@ -1,6 +1,9 @@
-import { MoonIcon } from "lucide-react";
+import { useTheme } from "@/store/themeProvider";
+import { MoonIcon, SunIcon } from "lucide-react";
 
 const Header = () => {
+  const { theme, setTheme } = useTheme();
+
   return (
     <header className="h-16 bg-background flex items-center justify-between px-4 py-4 border-b border-border">
       <div className="flex items-center gap-6">
@@ -11,9 +14,22 @@ const Header = () => {
           <p className="text-md text-muted-foreground">Saurabh Ojha</p>
           <small className="text-sm text-muted-foreground">Data Analyst</small>
         </div>
-        <button className="btn btn-sm btn-ghost">
-          <MoonIcon />
-        </button>
+        {theme === "light" || theme === "system" ? (
+          <button
+            className="btn btn-sm btn-ghost"
+            onClick={() => setTheme("dark")}
+          >
+            <MoonIcon />
+          </button>
+        ) : null}
+        {theme === "dark" || theme === "system" ? (
+          <button
+            className="btn btn-sm btn-ghost"
+            onClick={() => setTheme("light")}
+          >
+            <SunIcon />
+          </button>
+        ) : null}
       </div>
     </header>
   );
