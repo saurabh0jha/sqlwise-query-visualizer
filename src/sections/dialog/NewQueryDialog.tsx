@@ -24,7 +24,9 @@ import { Dispatch } from "react";
 import { Action } from "@/store/queryProvider";
 import { v4 as uuidv4 } from "uuid";
 
-export function NewQueryDialog({ type }: { type: "link" | "button" }) {
+type DialogType = "link" | "button";
+
+export function NewQueryDialog({ type }: { type: DialogType }) {
   const dispatch = useContext(QueriesDispatchContext) as Dispatch<Action>;
   const [name, setName] = useState("");
   const [dataSource, setDataSource] = useState("");

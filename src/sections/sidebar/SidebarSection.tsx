@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +12,6 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { QueriesContext } from "@/store/queryProvider";
-import { PlusIcon } from "lucide-react";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { NewQueryDialog } from "../dialog/NewQueryDialog";
@@ -35,7 +33,7 @@ const SidebarSection = () => {
         </SidebarHeader>
         <SidebarSeparator />
         <SidebarContent>
-          <NewQueryDialog />
+          <NewQueryDialog type="button" />
           <SidebarGroup>
             <SidebarGroupLabel className="font-medium">
               Saved Queries

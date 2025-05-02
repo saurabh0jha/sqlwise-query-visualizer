@@ -31,8 +31,6 @@ export const QueriesDispatchContext = createContext<Dispatch<Action> | null>(
   null
 );
 
-const initialQueries: QueryStore = {};
-
 export function QueriesProvider({ children }: { children: React.ReactNode }) {
   const savedQueries = localStorage.getItem("queries");
   const initialQueries = savedQueries ? JSON.parse(savedQueries) : {};

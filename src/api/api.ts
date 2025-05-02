@@ -1,10 +1,10 @@
 import Papa from "papaparse";
 
 const entityFileMap = {
-  customers: "/public/mocks/customers.csv",
-  products: "/public/mocks/products.csv",
-  orders: "/public/mocks/orders.csv",
-  orderDetails: "/public/mocks/order_details.csv",
+  customers: "/mocks/customers.csv",
+  products: "/mocks/products.csv",
+  orders: "/mocks/orders.csv",
+  orderDetails: "/mocks/order_details.csv",
 };
 
 const promisifyApi = async (
@@ -45,8 +45,8 @@ const getQueries = async (
   delay = 1000
 ): Promise<{ type: string; data: Array<any> }> => {
   const baseUrl = window.location.origin;
-  const data = await fetch(`${baseUrl}/public/mocks/queries.json`).then(
-    (response) => response.json()
+  const data = await fetch(`${baseUrl}/mocks/queries.json`).then((response) =>
+    response.json()
   );
   return promisifyApi(data, delay);
 };

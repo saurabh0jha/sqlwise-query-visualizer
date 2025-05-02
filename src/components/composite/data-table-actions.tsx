@@ -1,10 +1,3 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ExportType, CopyType } from "./types";
 import {
   DropdownMenu,
@@ -13,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { Copy, Download, ExternalLink } from "lucide-react";
+import { Copy, Download } from "lucide-react";
 
 const DataTableActions = ({
   onExport,
