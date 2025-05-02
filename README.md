@@ -7,6 +7,12 @@ The user will be able to run operations on data like exporting selection, pagina
 
 The App is deployed on Vercel at https://sqlwise-query-visualizer.vercel.app/
 
+## Recordings
+
+#### ✨✨ [Application Features [2:00 mins]](https://www.loom.com/share/53187946b60c4167af92f805adaf44b1)
+
+#### ✨✨ [Code Walkthrough [4:36 mins]](https://www.loom.com/share/deef0132f2e4401bb3d7f869017b4a0b)
+
 ## Performance Metrics
 
 [PageSpeed Metrics - Desktop](https://pagespeed.web.dev/analysis/https-sqlwise-query-visualizer-vercel-app/m0gohm4p2p?form_factor=desktop)

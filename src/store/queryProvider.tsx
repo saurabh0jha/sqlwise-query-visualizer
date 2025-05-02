@@ -35,9 +35,10 @@ export const QueriesDispatchContext = createContext<Dispatch<Action> | null>(
 export function QueriesProvider({ children }: { children: React.ReactNode }) {
   const savedQueries = localStorage.getItem("queries");
   const initialQueries = savedQueries ? JSON.parse(savedQueries) : {};
+
   const [queries, dispatch] = useReducer<QueryStore, any>(
     queriesReducer,
-    savedQueries ? JSON.parse(savedQueries) : initialQueries
+    initialQueries
   );
 
   useEffect(() => {

@@ -15,6 +15,7 @@ const QueryView = () => {
   const navigate = useNavigate();
   const { queryId } = useParams();
   const dispatch = useContext(QueriesDispatchContext) as Dispatch<Action>;
+
   const { queries, data, columns, queryData } = useQueryResults(
     queryId as string
   );
