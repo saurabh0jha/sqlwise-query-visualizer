@@ -18,7 +18,7 @@ import { NewQueryDialog } from "../dialog/NewQueryDialog";
 
 const SidebarSection = () => {
   const baseUrl = window.location.origin;
-  const logoPath = `${baseUrl}/src/assets/qw-logo.svg`;
+  const logoPath = `${baseUrl}/qw-logo.svg`;
   const queries = useContext(QueriesContext) || {};
   const navigate = useNavigate();
   return (
