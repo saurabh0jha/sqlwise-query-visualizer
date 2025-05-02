@@ -60,6 +60,7 @@ const SidebarSection = () => {
                     title={queries[queryId].name}
                     role="listitem"
                     aria-label={`Query: ${queries[queryId].name}`}
+                    data-active={queryId == currentQueryId}
                   >
                     <SidebarMenuButton
                       className="my-1 py-4 px-2"
