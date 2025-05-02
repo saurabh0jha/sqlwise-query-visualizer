@@ -21,7 +21,6 @@ const SidebarSection = () => {
   const queries = useContext(QueriesContext) || {};
   const navigate = useNavigate();
   const currentQueryId = useParams().queryId;
-  console.log(currentQueryId);
   return (
     <SidebarProvider className="w-40">
       <Sidebar className="w-40" role="navigation" aria-label="Main navigation">
@@ -75,10 +74,7 @@ const SidebarSection = () => {
                         aria-label={`Open query: ${queries[queryId].name}`}
                         tabIndex={0}
                       >
-                        <span>
-                          {queryId}
-                          {queries[queryId].name}
-                        </span>
+                        <span>{queries[queryId].name}</span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
