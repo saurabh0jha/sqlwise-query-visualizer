@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/composite/data-table";
+import DataTable from "@/components/composite/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import ResultsLoader from "./ResultsLoader";
 import React from "react";

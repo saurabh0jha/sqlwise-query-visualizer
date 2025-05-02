@@ -28,11 +28,11 @@ interface DataTableProps<TData, TValue> {
   heightOffset?: number;
 }
 
-export function DataTable<TData, TValue>({
+const DataTable = <TData, TValue>({
   columns,
   data,
   heightOffset = 320,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue>) => {
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
@@ -191,16 +191,8 @@ export function DataTable<TData, TValue>({
         </Table>
         <DataTablePagination table={table} />
       </div>
-      {table.getFilteredSelectedRowModel().rows.length ? (
-        <div
-          className="flex justify-start text-sm text-accent mt-2"
-          role="status"
-          aria-live="polite"
-        >
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-      ) : null}
     </div>
   );
-}
+};
+
+export default DataTable;

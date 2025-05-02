@@ -13,13 +13,15 @@ import {
 } from "@/components/ui/sidebar";
 import { QueriesContext } from "@/store/queryProvider";
 import { useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { NewQueryDialog } from "../dialog/NewQueryDialog";
 
 const SidebarSection = () => {
   const logoPath = `/qw-logo.png`;
   const queries = useContext(QueriesContext) || {};
   const navigate = useNavigate();
+  const currentQueryId = useParams().queryId;
+  console.log(currentQueryId);
   return (
     <SidebarProvider className="w-40">
       <Sidebar className="w-40" role="navigation" aria-label="Main navigation">
@@ -52,9 +54,12 @@ const SidebarSection = () => {
                 {Object.keys(queries).map((queryId) => (
                   <SidebarMenuItem
                     key={queryId}
-                    className="border-b border-border cursor-pointer"
+                    className={`rounded-md border-b border-border cursor-pointer ${
+                      queryId === currentQueryId ? "bg-sidebar-accent/50" : ""
+                    }`}
                     title={queries[queryId].name}
                     role="listitem"
+                    aria-label={`Query: ${queries[queryId].name}`}
                   >
                     <SidebarMenuButton
                       className="my-1 py-4 px-2"
@@ -69,7 +74,10 @@ const SidebarSection = () => {
                         aria-label={`Open query: ${queries[queryId].name}`}
                         tabIndex={0}
                       >
-                        <span>{queries[queryId].name}</span>
+                        <span>
+                          {queryId}
+                          {queries[queryId].name}
+                        </span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
