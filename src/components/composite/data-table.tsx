@@ -103,7 +103,6 @@ export function DataTable<TData, TValue>({
         break;
       case CopyType.ALL_CSV:
         tableRows = table.getCoreRowModel().rows;
-
         copyToClipboard(tableRows, "csv");
         break;
       case CopyType.ALL_JSON:
@@ -123,7 +122,7 @@ export function DataTable<TData, TValue>({
   };
 
   return (
-    <>
+    <div role="region" aria-label="Data table">
       <DataTableActions onExport={handleExport} onCopy={handleCopy} />
       <div
         className="rounded-md border flex flex-col"
@@ -131,14 +130,21 @@ export function DataTable<TData, TValue>({
           height: `calc(100vh - ${heightOffset}px)`,
           overflow: "scroll",
         }}
+        role="table"
+        aria-label="Query results"
       >
         <Table className="flex-1">
           <TableHeader className="bg-muted/30 text-primary-foreground">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} role="row">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="font-bold text-sm">
+                    <TableHead
+                      key={header.id}
+                      className="font-bold text-sm"
+                      role="columnheader"
+                      scope="col"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -157,9 +163,11 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  role="row"
+                  aria-selected={row.getIsSelected()}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} role="cell">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -169,10 +177,11 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))
             ) : (
-              <TableRow>
+              <TableRow role="row">
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
+                  role="cell"
                 >
                   No results.
                 </TableCell>
@@ -183,11 +192,15 @@ export function DataTable<TData, TValue>({
         <DataTablePagination table={table} />
       </div>
       {table.getFilteredSelectedRowModel().rows.length ? (
-        <div className="flex justify-start text-sm text-accent mt-2">
+        <div
+          className="flex justify-start text-sm text-accent mt-2"
+          role="status"
+          aria-live="polite"
+        >
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
