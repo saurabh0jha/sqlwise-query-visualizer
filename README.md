@@ -40,6 +40,7 @@ Uses Vite with HMR and some ESLint rules.
 7. User should be able to share the query they write with colleagues.
 8. User should be able to use and load the application easily. As data can be huge, performance is important - needs pagination to speedup render perf.
 9. User should be able to access their queries and workspaces easily.
+10. User should be able to toggle between light and dark modes.
 
 ### Good to have
 
@@ -143,6 +144,7 @@ store = {
 - Vendor chunk is separated and preloaded out for network optimization
 - React Memo for name, input and grid components for reducing renders.
 - useCallback hooks for preventing child re-renders on parent renders.
+- debounce on auto-updating query value input to prevent excessive API calls.
 
 ### Decision logs
 

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import debounce from "@/lib/debounce";
+import React, { useCallback, useEffect, useState } from "react";
 
 const QueryInput = React.memo(
   ({
@@ -9,6 +10,11 @@ const QueryInput = React.memo(
     onQueryValueChange: (value: string) => void;
   }) => {
     const [valueOfQuery, setValueOfQuery] = useState(queryValue);
+
+    const debouncedChangeHandler = useCallback(
+      debounce(onQueryValueChange, 2000),
+      [onQueryValueChange]
+    );
 
     useEffect(() => {
       setValueOfQuery(queryValue);
@@ -21,7 +27,7 @@ const QueryInput = React.memo(
         value={valueOfQuery}
         onChange={(e) => {
           setValueOfQuery(e.target.value);
-          onQueryValueChange(e.target.value);
+          debouncedChangeHandler(e.target.value);
         }}
       />
     );
