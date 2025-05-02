@@ -10,7 +10,7 @@ import {
 import { Dialog } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { CircleCheckBig, SquarePen, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 
 const QueryName = React.memo(
@@ -27,6 +27,12 @@ const QueryName = React.memo(
   }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [nameOfQuery, setNameOfQuery] = useState(queryName);
+
+    useEffect(() => {
+      setNameOfQuery(queryName);
+    }, [queryName]);
+
     return (
       <h1 className="text-2xl flex items-center gap-2">
         {isEditing ? (
@@ -37,22 +43,24 @@ const QueryName = React.memo(
               padding: "24px 12px",
             }}
             type="text"
-            value={queryName}
+            value={nameOfQuery}
             onChange={(e) => {
-              onQueryNameChange(e.target.value);
+              setNameOfQuery(e.target.value);
             }}
-            onBlur={() => {
+            onBlur={(e) => {
               setIsEditing(false);
+              onQueryNameChange(e.target.value);
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 setIsEditing(false);
+                onQueryNameChange((e.target as HTMLInputElement).value);
               }
             }}
           />
         ) : (
           <span className="border-b-2 border-primary border-dashed pt-2 pb-1">
-            {queryName}
+            {nameOfQuery}
           </span>
         )}
         {isEditing ? (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const QueryInput = React.memo(
   ({
@@ -8,12 +8,19 @@ const QueryInput = React.memo(
     queryValue: string;
     onQueryValueChange: (value: string) => void;
   }) => {
+    const [valueOfQuery, setValueOfQuery] = useState(queryValue);
+
+    useEffect(() => {
+      setValueOfQuery(queryValue);
+    }, [queryValue]);
+
     return (
       <textarea
         className="field-sizing-content w-full p-4 text-md rounded-md border-2 focus-visible:border-accent min-h-12"
         placeholder="Enter your query"
-        value={queryValue}
+        value={valueOfQuery}
         onChange={(e) => {
+          setValueOfQuery(e.target.value);
           onQueryValueChange(e.target.value);
         }}
       />
