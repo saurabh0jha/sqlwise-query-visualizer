@@ -146,6 +146,10 @@ store = {
 - useCallback hooks for preventing child re-renders on parent renders.
 - debounce on auto-updating query value input to prevent excessive API calls.
 
+### Accessibility
+
+- added ARIA controls using Cursor AI generated attributes
+
 ### Decision logs
 
 #### Codebase - Typescript or not
