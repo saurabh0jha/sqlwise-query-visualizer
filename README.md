@@ -12,7 +12,7 @@ The App is deployed on Vercel at https://sqlwise-query-visualizer.vercel.app/
 [PageSpeed Metrics - Desktop](https://pagespeed.web.dev/analysis/https-sqlwise-query-visualizer-vercel-app/m0gohm4p2p?form_factor=desktop)
 [PageSpeed Metrics - Mobile](https://pagespeed.web.dev/analysis/https-sqlwise-query-visualizer-vercel-app/m0gohm4p2p?form_factor=mobile)
 
-[Lighthouse chrome trace](./public/lighthouse-timespan-metrics.html)
+[Lighthouse chrome trace](https://sqlwise-query-visualizer.vercel.app/lighthouse-timespan-metrics.html)
 
 - PageSpeed Metrics [Desktop]
 
