@@ -17,8 +17,7 @@ import { useNavigate } from "react-router";
 import { NewQueryDialog } from "../dialog/NewQueryDialog";
 
 const SidebarSection = () => {
-  const baseUrl = window.location.origin;
-  const logoPath = `${baseUrl}/qw-logo.svg`;
+  const logoPath = `/qw-logo.svg`;
   const queries = useContext(QueriesContext) || {};
   const navigate = useNavigate();
   return (
