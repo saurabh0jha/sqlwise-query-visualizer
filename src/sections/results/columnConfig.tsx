@@ -53,14 +53,14 @@ const getDateColumnConfig = (accessorKey: string) => {
     cell: ({ row }: { row: Row<any> }) => {
       let dateString = "";
       try {
-        dateString = new Date(row.original[accessorKey]).toLocaleDateString(
-          "en-US",
-          {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }
-        );
+        dateString =
+          row.original[accessorKey] !== "NULL"
+            ? new Date(row.original[accessorKey]).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            : "N/A";
       } catch (error) {
         console.error(error);
       }
