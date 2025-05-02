@@ -1,5 +1,5 @@
 import { useTheme } from "@/store/themeProvider";
-import { MoonIcon, SunIcon } from "lucide-react";
+import { GithubIcon, MoonIcon, SunIcon } from "lucide-react";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -30,6 +30,17 @@ const Header = () => {
             <SunIcon />
           </button>
         ) : null}
+        <button
+          className="btn btn-sm btn-ghost"
+          onClick={() =>
+            window.open(
+              "https://github.com/saurabh0jha/sqlwise-query-visualizer",
+              "_blank"
+            )
+          }
+        >
+          <GithubIcon />
+        </button>
       </div>
     </header>
   );
