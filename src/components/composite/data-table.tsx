@@ -1,0 +1,173 @@
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useState } from "react";
+import DataTableActions from "./data-table-actions";
+import { CopyType } from "@/components/composite/types";
+import { ExportType } from "@/components/composite/types";
+import { copyToClipboard, downloadFile } from "@/lib/utils";
+import { DataTablePagination } from "./data-table-pagination";
+
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  heightOffset?: number;
+}
+
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  heightOffset = 320,
+}: DataTableProps<TData, TValue>) {
+  const [rowSelection, setRowSelection] = useState({});
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onRowSelectionChange: setRowSelection,
+    state: {
+      rowSelection,
+    },
+  });
+  const handleExport = (type: ExportType) => {
+    let tableRows;
+    switch (type) {
+      case ExportType.ALL_CSV:
+        tableRows = table.getCoreRowModel().rows;
+        downloadFile(tableRows, "csv", "full-data.csv");
+        break;
+      case ExportType.ALL_JSON:
+        tableRows = table.getCoreRowModel().rows;
+        downloadFile(tableRows, "json", "full-data.json");
+        break;
+      case ExportType.SELECTION_CSV:
+        tableRows = table.getFilteredSelectedRowModel().rows;
+        if (tableRows.length === 0) {
+          tableRows = table.getRowModel().rows;
+        }
+        downloadFile(tableRows, "csv", "selected-data.csv");
+        break;
+      case ExportType.SELECTION_JSON:
+        tableRows = table.getFilteredSelectedRowModel().rows;
+        if (tableRows.length === 0) {
+          tableRows = table.getRowModel().rows;
+        }
+        downloadFile(tableRows, "json", "selected-data.json");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleCopy = (type: CopyType) => {
+    let tableRows;
+    switch (type) {
+      case CopyType.SELECTION_CSV:
+        tableRows = table.getFilteredSelectedRowModel().rows;
+        if (tableRows.length === 0) {
+          tableRows = table.getRowModel().rows;
+        }
+        copyToClipboard(tableRows, "csv");
+        break;
+      case CopyType.SELECTION_JSON:
+        tableRows = table.getFilteredSelectedRowModel().rows;
+        if (tableRows.length === 0) {
+          tableRows = table.getRowModel().rows;
+        }
+        copyToClipboard(tableRows, "json");
+        break;
+      case CopyType.ALL_CSV:
+        tableRows = table.getCoreRowModel().rows;
+
+        copyToClipboard(tableRows, "csv");
+        break;
+      case CopyType.ALL_JSON:
+        tableRows = table.getCoreRowModel().rows;
+        copyToClipboard(tableRows, "json");
+        break;
+    }
+  };
+  return (
+    <>
+      <DataTableActions onExport={handleExport} onCopy={handleCopy} />
+      <div
+        className="rounded-md border flex flex-col"
+        style={{
+          height: `calc(100vh - ${heightOffset}px)`,
+          overflow: "scroll",
+        }}
+      >
+        <Table className="flex-1">
+          <TableHeader className="bg-muted/30 text-primary-foreground">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id} className="font-bold text-sm">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody className="border-b border-border">
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+        <DataTablePagination table={table} />
+      </div>
+      {table.getFilteredSelectedRowModel().rows.length ? (
+        <div className="flex justify-start text-sm text-accent mt-2">
+          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+      ) : null}
+    </>
+  );
+}

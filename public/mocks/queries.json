@@ -1,0 +1,26 @@
+
+
+
+{
+    "550e8400-e29b-41d4-a716-446655440000": {
+        "name": "Customer demo",
+        "value": "SELECT * FROM users WHERE age > 30 AND gender = 'male' GROUP BY gender ORDER BY age DESC LIMIT 10",
+        "createdAt": "2021-01-01T00:00:00.000Z",
+        "updatedAt": "2021-01-01T00:00:00.000Z",
+        "dataSource": "customers"
+    },
+    "550e8400-e29b-41d4-a716-446655440001": {
+        "name": "Product inventory",
+        "value": "SELECT * FROM products WHERE inventory > 0 AND supply > 0",
+        "createdAt": "2021-01-01T00:00:00.000Z",
+        "updatedAt": "2021-01-01T00:00:00.000Z",
+        "dataSource": "products"
+    },
+    "550e8400-e29b-41d4-a716-446655440002": {
+        "name": "Orders",
+        "value": "SELECT * FROM orders",
+        "createdAt": "2021-01-01T00:00:00.000Z",
+        "updatedAt": "2021-01-01T00:00:00.000Z",
+        "dataSource": "orders"
+    }
+}
