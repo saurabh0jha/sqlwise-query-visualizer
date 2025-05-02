@@ -36,26 +36,39 @@ export function NewQueryDialog({ type }: { type: DialogType }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {type === "link" ? (
-          <span className=" flex items-center pb-1 gap-2">
+          <span
+            className="flex items-center pb-1 gap-2"
+            role="button"
+            tabIndex={0}
+            aria-label="Create a new query"
+          >
             <span className="border-b-2 border-accent border-dashed text-lg">
               Create a new query
             </span>
           </span>
         ) : (
-          <Button variant="default" className="mx-4 mt-4 mb-2 p-4">
+          <Button
+            variant="default"
+            className="mx-4 mt-4 mb-2 p-4"
+            aria-label="Create a new query"
+          >
             New Query
-            <PlusIcon className="w-4 h-4 text-primary" />
+            <PlusIcon className="w-4 h-4 text-primary" aria-hidden="true" />
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        role="dialog"
+        aria-modal="true"
+      >
         <DialogHeader>
           <DialogTitle>Create Query</DialogTitle>
           <DialogDescription>
             Add a name, optional datasource and optional query to get started.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4 py-4" role="form">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Name
@@ -68,6 +81,8 @@ export function NewQueryDialog({ type }: { type: DialogType }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              aria-required="true"
+              aria-label="Query name"
             />
           </div>
 
@@ -82,14 +97,25 @@ export function NewQueryDialog({ type }: { type: DialogType }) {
                 setQueryValue("SELECT * FROM " + value);
               }}
             >
-              <SelectTrigger className="w-[280px] border-2 border-gray-300 rounded-md p-1 align-left">
+              <SelectTrigger
+                className="w-[280px] border-2 border-gray-300 rounded-md p-1 align-left"
+                aria-label="Select data source"
+              >
                 <SelectValue placeholder="Select a datasource" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="customers">Customers</SelectItem>
-                <SelectItem value="products">Products</SelectItem>
-                <SelectItem value="orders">Orders</SelectItem>
-                <SelectItem value="orderDetails">Order Details</SelectItem>
+              <SelectContent role="listbox">
+                <SelectItem value="customers" role="option">
+                  Customers
+                </SelectItem>
+                <SelectItem value="products" role="option">
+                  Products
+                </SelectItem>
+                <SelectItem value="orders" role="option">
+                  Orders
+                </SelectItem>
+                <SelectItem value="orderDetails" role="option">
+                  Order Details
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -105,6 +131,7 @@ export function NewQueryDialog({ type }: { type: DialogType }) {
               placeholder="Enter SQL query"
               value={queryValue}
               onChange={(e) => setQueryValue(e.target.value)}
+              aria-label="SQL query"
             />
           </div>
         </div>
@@ -130,6 +157,7 @@ export function NewQueryDialog({ type }: { type: DialogType }) {
               setQueryValue("");
               setOpen(false);
             }}
+            aria-label="Create query"
           >
             Create Query
           </Button>

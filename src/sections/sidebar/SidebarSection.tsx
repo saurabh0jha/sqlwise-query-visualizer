@@ -22,11 +22,17 @@ const SidebarSection = () => {
   const navigate = useNavigate();
   return (
     <SidebarProvider className="w-40">
-      <Sidebar className="w-40">
+      <Sidebar className="w-40" role="navigation" aria-label="Main navigation">
         <SidebarHeader className="h-16">
           <SidebarMenu>
             <SidebarMenuItem className="flex items-center justify-center">
-              <img src={logoPath} alt="QueryWise" className="w-20 h-10" />
+              <img
+                src={logoPath}
+                alt="QueryWise"
+                className="w-20 h-10"
+                role="img"
+                aria-label="QueryWise logo"
+              />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>
@@ -34,16 +40,21 @@ const SidebarSection = () => {
         <SidebarContent>
           <NewQueryDialog type="button" />
           <SidebarGroup>
-            <SidebarGroupLabel className="font-medium">
+            <SidebarGroupLabel
+              className="font-medium"
+              role="heading"
+              aria-level={2}
+            >
               Saved Queries
             </SidebarGroupLabel>
-            <SidebarGroupContent>
+            <SidebarGroupContent role="list">
               <SidebarMenu>
                 {Object.keys(queries).map((queryId) => (
                   <SidebarMenuItem
                     key={queryId}
                     className="border-b border-border cursor-pointer"
                     title={queries[queryId].name}
+                    role="listitem"
                   >
                     <SidebarMenuButton
                       className="my-1 py-4 px-2"
@@ -54,6 +65,9 @@ const SidebarSection = () => {
                         onClick={() => {
                           navigate(`/query/${queryId}`);
                         }}
+                        role="link"
+                        aria-label={`Open query: ${queries[queryId].name}`}
+                        tabIndex={0}
                       >
                         <span>{queries[queryId].name}</span>
                       </a>

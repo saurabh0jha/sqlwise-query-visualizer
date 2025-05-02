@@ -64,7 +64,11 @@ const getDateColumnConfig = (accessorKey: string) => {
       } catch (error) {
         console.error(error);
       }
-      return <div className="text-left">{dateString}</div>;
+      return (
+        <div className="text-left" role="cell">
+          {dateString}
+        </div>
+      );
     },
   };
 };
@@ -84,7 +88,11 @@ const getPriceColumnConfig = (accessorKey: string) => {
       } catch (error) {
         console.error(error);
       }
-      return <div className="text-left">{priceString}</div>;
+      return (
+        <div className="text-left" role="cell">
+          {priceString}
+        </div>
+      );
     },
   };
 };
@@ -103,6 +111,11 @@ export const getColumnConfig = (data: any[]): ColumnDef<any>[] => {
     return {
       accessorKey,
       header: getHeaderFromKey(accessorKey),
+      cell: ({ row }) => (
+        <div className="text-left" role="cell">
+          {row.getValue(accessorKey)}
+        </div>
+      ),
     };
   });
 
@@ -115,14 +128,18 @@ export const getColumnConfig = (data: any[]): ColumnDef<any>[] => {
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label="Select all rows"
+        role="checkbox"
+        aria-checked={table.getIsAllPageRowsSelected()}
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label={`Select row ${row.index + 1}`}
+        role="checkbox"
+        aria-checked={row.getIsSelected()}
       />
     ),
   });
@@ -131,7 +148,11 @@ export const getColumnConfig = (data: any[]): ColumnDef<any>[] => {
     accessorKey: "index",
     header: "#",
     cell: ({ row }) => {
-      return <div className="text-left text-primary">{row.index + 1}</div>;
+      return (
+        <div className="text-left text-primary" role="cell">
+          {row.index + 1}
+        </div>
+      );
     },
   });
 

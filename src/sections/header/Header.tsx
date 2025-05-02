@@ -5,12 +5,21 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="h-16 bg-background flex items-center justify-between px-4 py-4 border-b border-border">
+    <header
+      className="h-16 bg-background flex items-center justify-between px-4 py-4 border-b border-border"
+      role="banner"
+    >
       <div className="flex items-center gap-6">
-        <h1 className="text-2xl text-accent font-semibold">QueryWise</h1>
+        <h1
+          className="text-2xl text-accent font-semibold"
+          role="heading"
+          aria-level={1}
+        >
+          QueryWise
+        </h1>
       </div>
       <div className="flex items-center gap-4">
-        <div className="flex flex-col">
+        <div className="flex flex-col" role="contentinfo">
           <p className="text-md text-muted-foreground">Saurabh Ojha</p>
           <small className="text-sm text-muted-foreground">Data Analyst</small>
         </div>
@@ -18,16 +27,20 @@ const Header = () => {
           <button
             className="btn btn-sm btn-ghost"
             onClick={() => setTheme("dark")}
+            aria-label="Switch to dark mode"
+            role="switch"
           >
-            <MoonIcon />
+            <MoonIcon aria-hidden="true" />
           </button>
         ) : null}
         {theme === "dark" || theme === "system" ? (
           <button
             className="btn btn-sm btn-ghost"
             onClick={() => setTheme("light")}
+            aria-label="Switch to light mode"
+            role="switch"
           >
-            <SunIcon />
+            <SunIcon aria-hidden="true" />
           </button>
         ) : null}
         <button
@@ -38,8 +51,9 @@ const Header = () => {
               "_blank"
             )
           }
+          aria-label="View project on GitHub"
         >
-          <GithubIcon />
+          <GithubIcon aria-hidden="true" />
         </button>
       </div>
     </header>

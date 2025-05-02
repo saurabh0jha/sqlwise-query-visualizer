@@ -34,7 +34,11 @@ const QueryName = React.memo(
     }, [queryName]);
 
     return (
-      <h1 className="text-2xl flex items-center gap-2">
+      <h1
+        className="text-2xl flex items-center gap-2"
+        role="heading"
+        aria-level={1}
+      >
         {isEditing ? (
           <Input
             className="md:text-2xl text-2xl w-1/2 p-4"
@@ -57,6 +61,8 @@ const QueryName = React.memo(
                 onQueryNameChange((e.target as HTMLInputElement).value);
               }
             }}
+            aria-label="Query name"
+            role="textbox"
           />
         ) : (
           <span className="border-b-2 border-primary border-dashed pt-2 pb-1">
@@ -69,6 +75,9 @@ const QueryName = React.memo(
             onClick={() => {
               setIsEditing(!isEditing);
             }}
+            role="button"
+            aria-label="Save query name"
+            tabIndex={0}
           />
         ) : (
           <SquarePen
@@ -76,13 +85,21 @@ const QueryName = React.memo(
             onClick={() => {
               setIsEditing(!isEditing);
             }}
+            role="button"
+            aria-label="Edit query name"
+            tabIndex={0}
           />
         )}
         <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
           <DialogTrigger asChild>
-            <Trash2 className="w-5 h-5 ml-3" />
+            <Trash2
+              className="w-5 h-5 ml-3"
+              role="button"
+              aria-label="Delete query"
+              tabIndex={0}
+            />
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent role="dialog" aria-modal="true">
             <DialogHeader>
               <DialogTitle>Delete Query</DialogTitle>
               <DialogDescription>
@@ -95,6 +112,7 @@ const QueryName = React.memo(
                 onClick={() => {
                   setIsDeleteModalOpen(false);
                 }}
+                aria-label="Cancel delete"
               >
                 Cancel
               </Button>
@@ -104,6 +122,7 @@ const QueryName = React.memo(
                   onQueryDelete(queryId);
                   setIsDeleteModalOpen(false);
                 }}
+                aria-label="Confirm delete"
               >
                 Delete
               </Button>
