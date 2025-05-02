@@ -23,26 +23,28 @@ const Header = () => {
           <p className="text-md text-muted-foreground">Saurabh Ojha</p>
           <small className="text-sm text-muted-foreground">Data Analyst</small>
         </div>
-        <button
-          className="btn btn-sm btn-ghost"
-          onClick={() => setTheme("dark")}
-          aria-label="Switch to dark mode"
-          role="switch"
-          data-active={theme === "light"}
-          title="Switch to dark mode"
-        >
-          <MoonIcon aria-hidden="true" />
-        </button>
-        <button
-          className="btn btn-sm btn-ghost"
-          onClick={() => setTheme("light")}
-          aria-label="Switch to light mode"
-          role="switch"
-          data-active={theme === "dark"}
-          title="Switch to light mode"
-        >
-          <SunIcon aria-hidden="true" />
-        </button>
+        {theme === "light" || theme === "system" ? (
+          <button
+            className="btn btn-sm btn-ghost"
+            onClick={() => setTheme("dark")}
+            aria-label="Switch to dark mode"
+            role="switch"
+            title="Switch to dark mode"
+          >
+            <MoonIcon aria-hidden="true" />
+          </button>
+        ) : null}
+        {theme === "dark" || theme === "system" ? (
+          <button
+            className="btn btn-sm btn-ghost"
+            onClick={() => setTheme("light")}
+            aria-label="Switch to light mode"
+            title="Switch to light mode"
+            role="switch"
+          >
+            <SunIcon aria-hidden="true" />
+          </button>
+        ) : null}
         <button
           className="btn btn-sm btn-ghost"
           onClick={() =>
