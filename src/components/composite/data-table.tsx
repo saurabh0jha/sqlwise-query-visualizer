@@ -38,7 +38,7 @@ const DataTable = <TData, TValue>({
   data,
   heightOffset = 320,
 }: DataTableProps<TData, TValue>) => {
-  const [rowSelection, setRowSelection] = useState({});
+  // const [rowSelection, setRowSelection] = useState({});
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
