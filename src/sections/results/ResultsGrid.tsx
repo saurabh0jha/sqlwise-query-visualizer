@@ -1,7 +1,9 @@
-import DataTable from "@/components/composite/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import ResultsLoader from "./ResultsLoader";
-import React from "react";
+import React, { lazy, Suspense } from "react";
+
+const DataTable = lazy(() => import("@/components/composite/data-table"));
+
 const ResultsGrid = React.memo(
   ({
     data,
@@ -16,11 +18,13 @@ const ResultsGrid = React.memo(
       <>
         {data?.length ? (
           <div className="container py-2">
-            <DataTable
-              columns={columns}
-              data={data}
-              heightOffset={heightOffset}
-            />
+            <Suspense fallback={<ResultsLoader />}>
+              <DataTable
+                columns={columns as ColumnDef<unknown, unknown>[]}
+                data={data}
+                heightOffset={heightOffset}
+              />
+            </Suspense>
           </div>
         ) : (
           <ResultsLoader />

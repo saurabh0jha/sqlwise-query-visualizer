@@ -1,8 +1,12 @@
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -21,6 +25,7 @@ import { ExportType } from "@/components/composite/types";
 import { copyToClipboard, downloadFile } from "@/lib/utils";
 import { DataTablePagination } from "./data-table-pagination";
 import { toast } from "sonner";
+import { DataTableFilters } from "./data-table-filters";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -35,14 +40,21 @@ const DataTable = <TData, TValue>({
 }: DataTableProps<TData, TValue>) => {
   const [rowSelection, setRowSelection] = useState({});
 
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onRowSelectionChange: setRowSelection,
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
-      rowSelection,
+      sorting,
+      columnFilters,
     },
   });
   const handleExport = (type: ExportType) => {
@@ -123,7 +135,10 @@ const DataTable = <TData, TValue>({
 
   return (
     <div role="region" aria-label="Data table">
-      <DataTableActions onExport={handleExport} onCopy={handleCopy} />
+      <div className="flex justify-between">
+        <DataTableFilters table={table} />
+        <DataTableActions onExport={handleExport} onCopy={handleCopy} />
+      </div>
       <div
         className="rounded-md border flex flex-col"
         style={{

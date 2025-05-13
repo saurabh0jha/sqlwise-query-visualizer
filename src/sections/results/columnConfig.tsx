@@ -1,5 +1,7 @@
-import { ColumnDef, Row } from "@tanstack/react-table";
+import { Column, ColumnDef, Row } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 const keyToHeaderMap = {
   customerID: "Customer ID",
@@ -49,7 +51,18 @@ const getHeaderFromKey = (key: string) => {
 const getDateColumnConfig = (accessorKey: string) => {
   return {
     accessorKey,
-    header: getHeaderFromKey(accessorKey),
+    header: ({ column }: { column: Column<any> }) => {
+      return (
+        <div
+          role="button"
+          className="flex justify-start font-bold cursor-pointer px-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          <span>{getHeaderFromKey(accessorKey)}</span>
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </div>
+      );
+    },
     cell: ({ row }: { row: Row<any> }) => {
       let dateString = "";
       try {
@@ -76,7 +89,18 @@ const getDateColumnConfig = (accessorKey: string) => {
 const getPriceColumnConfig = (accessorKey: string) => {
   return {
     accessorKey,
-    header: getHeaderFromKey(accessorKey),
+    header: ({ column }: { column: Column<any> }) => {
+      return (
+        <div
+          role="button"
+          className="flex justify-start font-bold cursor-pointer px-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          {getHeaderFromKey(accessorKey)}
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </div>
+      );
+    },
     cell: ({ row }: { row: Row<any> }) => {
       let priceString = "";
       try {
@@ -93,6 +117,14 @@ const getPriceColumnConfig = (accessorKey: string) => {
           {priceString}
         </div>
       );
+    },
+    meta: {
+      filterVariant: "range",
+    },
+    filterFn: (row: Row<any>, id: string, filterValue: [number, number]) => {
+      const price = parseFloat(row.original[id]);
+      if (isNaN(price)) return false;
+      return price >= filterValue[0] && price <= filterValue[1];
     },
   };
 };
